@@ -1,0 +1,95 @@
+<!-- Layout the questions-->
+<!-- Name the key sections with specific ID names -->
+<!-- Build the logic, match IDs to JS logic -->
+<!-- Link to JS at the end of the file -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Beer Trivia</title>
+
+				<!-- Bootstrap is used to make game look nicer-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">  
+
+		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+		
+		<!--Bootstrap Container-->
+		<div class="container">
+		
+			<!-- Jumbotron will hold title and timer -->
+			<div class="jumbotron">
+				<div class="container">		
+					<h1>Beer Trivia</h1>
+					<br>
+					<p><a class="btn btn-primary btn-lg" href="#" role="button" id="startButton">START!</a></p>
+					
+					<!-- Timer -->
+					<h2 id="timer">Timer: </h2>
+				</div>
+		<!-- This is the end of the header -->
+		</div>
+						
+		<!-- this is the beginning of the trivia questions-->			
+		<div class="main">
+
+
+
+
+
+			<!--Question 1 -->
+			<h3>1. What is Cenosillicaphobia the fear of?</h3>
+				<form class="question">
+					<input type="radio" name="answer" value="glass"> Fear of an empty glass<br>
+					<input type="radio" name="answer" value="drunk"> You're afraid of getting too drunk<br>
+					<input type="radio" name="answer" value="spider"> Fear of a spider in your beer<br>
+					<input type="radio" name="answer" value="flat"> Fear of flat beer<br>
+				</form>
+			<br>
+			<br>
+					
+			<!--Question 2 -->
+			<h3>2. What is brew master in Latin?</h3>
+				<form class="question">
+					<input type="radio" name="answer" value="Cervezador"> Cervezador<br>
+					<input type="radio" name="answer" value="Ipsumbeermaker"> Lorem Ipsumbeermaker<br>
+					<input type="radio" name="answer" value="Braxator"> Braxator<br>
+					<input type="radio" name="answer" value="Cerveza"> Señor Cerveza<br>
+				</form>
+
+			<br>
+			<br>
+
+			<!--Question 3 -->
+			<h3>3. What beer accounts for 85%<br> of all German beer exports to the U.S.?</h3>
+			<h4>Hint: It is Germany's top export beer.</h4>
+				<form class="question">
+					<input type="radio" name="answer" value="Gerbeer"> Gerbeer<br>
+					<input type="radio" name="answer" value="Herr"> Herr Light<br>
+					<input type="radio" name="answer" value="Becks"> Beck's<br>
+					<input type="radio" name="answer" value="Budnicht"> Budnicht<br>
+				</form>
+
+		
+		<div id="totalScore">
+				<h2>TIME'S UP!</h2>
+				<h3>Correct Answers:</h3>
+				<h3>Incorrect Answers:</h3>
+				<h3>Unanswered:</h3>
+		</div>
+
+		
+
+
+
+
+		</div>
+	
+	<!-- jQuery-->
+	<script src="https://code.jquery.com/jquery-2.2.0.js"></script>
+	
+	<!-- javascript-->
+	<script src="assets/javascript/app.js"></script>
+</body>
+</html>
