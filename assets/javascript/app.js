@@ -7,64 +7,123 @@
 // When timer ends, screen changes to show the total score
 // Last screen needs to show number of correct answers, wrong answers, and unanswered questions
 
+var panel = $("#quiz-area");
 
-//GLOBAL VARIABLES (Accessible by all functions)
-//==========================================================================
- 	//Correct Answers
-	var correctAnswers = [""];
-	var wrongAnswers = [""];
-
-
-	//Game Counter
-	var wins = 0;
-	var losses = 0;
-	var unanswered = 0;
-
-	//timer
-	var timeLeft = 60;
-	
-	//audio
-	//var audio = new Audio (s)
-
-//FUNCTIONS (These are bits of code that we will call upon to run when needed)
-//============================================================================
-
-	//TIMER
-	//when start button clicked, show the main div
-	$("#startButton").on("click",function() { 
-		$(".main").css("visibility", "visible")
-		//then hide the start button 
-		$("#startButton").hide()
-		//then the timer appears in the start button's place
-		$("#timer").css("visibility", "visible")
-		//timer should begin to countdown from 60 seconds
-		setInterval(timer, 1000);
-
-	});
-
-		//Another way to get the questions to show up when the Start button is clicked
-		//	$( "#startButton" ).click(function() {
-	 	//		$(".main" ).css("visibility", "visible");
-		//	});
-
-	 // function to countdown 
-	 function timer() {
-	 	timeLeft--;
-	 	console.log(timeLeft);
-	 	$("#timer").html("Timer " + "00:" + timeLeft); 
-	 	
-	 	//when timer reaches less than ten seconds, display time as 00:09 etc
-	 	if (timeLeft < 10) {
-	 		timeLeft = "0" + timeLeft;
-	 	}
-
-	 }
-	
-
-	 //need to set time limit - after 60 seconds up change to score screen
+//QUESTIONS 
+var questions = [{
+	question: "What is brew master in Latin?",
+	answers: ["Cervezador", "Lorem Ipsumbeermaker", "Braxator", "Señor Cerveza"], 
+	correctAnswer: "Braxator"
+}, {
+	question: "What is Cenosillicaphobia the fear of?", 
+	answers: ["Fear of an empty glass", "You're afraid of getting too drunk", "Fear of a spider in your beer", "Fear of flat beer"],
+	correctAnswer: "Fear of an empty glass"
+}, {
+	question: "What beer accounts for 85% of all German beer exports to the U.S.?", 
+	answers: ["Gerbeer", "Herr Light", "Becks", "Budnicht"], 
+	correctAnswer: "Becks"
+}];
 
 
-// MAIN PROCESS (THIS IS THE CODE THAT CONTROLS WHAT IS ACTUALLY RUN)
-// ==================================================================================================
+
+var timer;
+
+var game = {
+
+  correct: 0,
+  incorrect: 0,
+  counter: 20,
+
+  countdown: function() {
+    game.counter--;
+    $("#counter-number").html(game.counter);
+    if (game.counter === 0) {
+      console.log("TIME UP");
+      game.done();
+    }
+  },
+
+  start: function() {
+    timer = setInterval(game.countdown, 1000);
+
+    $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>20</span> Seconds</h2>");
+
+    $("#start").remove();
+
+    for (var i = 0; i < questions.length; i++) {
+      panel.append("<h2>" + questions[i].question + "</h2>");
+      for (var j = 0; j < questions[i].answers.length; j++) {
+        panel.append("<input type='radio' name='question-" + i +
+        "' value='" + questions[i].answers[j] + "''>" + questions[i].answers[j]);
+      }
+    }
+
+    panel.append("<button id='done'>Done</button>");
+  },
+
+  done: function() {
+
+    $.each($("input[name='question-0']:checked"), function() {
+      if ($(this).val() === questions[0].correctAnswer) {
+        game.correct++;
+      }
+      else {
+        game.incorrect++;
+      }
+    });
+
+    $.each($("input[name='question-1']:checked"), function() {
+      if ($(this).val() === questions[1].correctAnswer) {
+        game.correct++;
+      }
+      else {
+        game.incorrect++;
+      }
+    });
+
+    $.each($("input[name='question-2']:checked"), function() {
+      if ($(this).val() === questions[2].correctAnswer) {
+        game.correct++;
+      }
+      else {
+        game.incorrect++;
+      }
+    });
+
+    this.result();
+
+  },
+
+  result: function() {
+
+    clearInterval(timer);
+
+    $("#sub-wrapper h2").remove();
+
+    panel.html("<h2>All Done!</h2>");
+    panel.append("<h3>Correct Answers: " + this.correct + "</h3>");
+    panel.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
+    panel.append("<h3>Unanswered: " + (questions.length - (this.incorrect + this.correct)) + "</h3>");
+  }
+};
+
+// CLICK EVENTS
+
+$(document).on("click", "#start", function() {
+  game.start();
+});
+
+
+$(document).on("click", "#done", function() {
+  game.done();
+});
+
+
+
+
+
+
+
+
 
 
